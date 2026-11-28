@@ -1,7 +1,7 @@
-import { resolveIcon } from '../dsh-diagram/lib/icons.js'
-import { normalizeSpec } from '../dsh-diagram/lib/spec.js'
-import { buildDiagram } from '../dsh-diagram/lib/render.js'
-import { svgToPng } from '../dsh-diagram/lib/png.js'
+import { resolveIcon } from '../packages/diagram/lib/icons.js'
+import { normalizeSpec } from '../packages/diagram/lib/spec.js'
+import { buildDiagram } from '../packages/diagram/lib/render.js'
+import { svgToPng } from '../packages/diagram/lib/png.js'
 import fs from 'node:fs'
 
 const cases = [
@@ -56,8 +56,8 @@ const spec = normalizeSpec({
 console.log('spec icons:', spec.nodes.map((node) => `${node.id}=${node.iconName}`).join(', '))
 
 const diagram = buildDiagram(spec)
-fs.mkdirSync('.dev/out', { recursive: true })
-fs.writeFileSync('.dev/out/aliases.svg', diagram.svg)
+fs.mkdirSync('tools/out', { recursive: true })
+fs.writeFileSync('tools/out/aliases.svg', diagram.svg)
 const png = svgToPng(diagram.svg, 2)
-fs.writeFileSync('.dev/out/aliases.png', png.bytes)
+fs.writeFileSync('tools/out/aliases.png', png.bytes)
 console.log('rendered:', diagram.width, 'x', diagram.height)

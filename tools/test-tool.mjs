@@ -1,9 +1,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { createDiagramTool } from '../dsh-diagram/lib/tool.js'
-import { normalizeSpec } from '../dsh-diagram/lib/spec.js'
-import { buildDiagram } from '../dsh-diagram/lib/render.js'
-import { svgToPng } from '../dsh-diagram/lib/png.js'
+import { createDiagramTool } from '../packages/diagram/lib/tool.js'
+import { normalizeSpec } from '../packages/diagram/lib/spec.js'
+import { buildDiagram } from '../packages/diagram/lib/render.js'
+import { svgToPng } from '../packages/diagram/lib/png.js'
 
 function assert(condition, message) {
   if (!condition) throw new Error(`assertion failed: ${message}`)
@@ -47,18 +47,18 @@ const cyrillic = {
 }
 const spec = normalizeSpec(cyrillic)
 const diagram = buildDiagram(spec)
-fs.mkdirSync('.dev/out', { recursive: true })
-const svgPath = path.resolve('.dev/out/cyrillic-lr.svg')
+fs.mkdirSync('tools/out', { recursive: true })
+const svgPath = path.resolve('tools/out/cyrillic-lr.svg')
 fs.writeFileSync(svgPath, diagram.svg)
 const png = svgToPng(diagram.svg, 2)
-fs.writeFileSync(path.resolve('.dev/out/cyrillic-lr.png'), png.bytes)
+fs.writeFileSync(path.resolve('tools/out/cyrillic-lr.png'), png.bytes)
 console.log('cyrillic:', diagram.width, 'x', diagram.height, 'png', png.width, 'x', png.height)
 
 // --- the tool end to end without host services ------------------------------
 const ctx = { get: () => undefined }
 const tool = createDiagramTool(ctx)
 const exec = { agent: { id: 'test-agent' }, signal: AbortSignal.timeout(30_000) }
-const result = await tool.execute({ spec: cyrillic, output: 'diagrams/order-flow', format: 'both' }, exec)
+const result = await tool.execute({ spec: cyrillic, output: 'tools/out/order-flow', format: 'both' }, exec)
 console.log('tool result:', JSON.stringify(result, null, 2))
 for (const file of result.files) assert(fs.existsSync(path.resolve(file.path)), `missing ${file.path}`)
 
@@ -70,10 +70,10 @@ const readOnlyTool = createDiagramTool({
   },
 })
 try {
-  await readOnlyTool.execute({ spec: cyrillic, output: 'diagrams/denied' }, exec)
+  await readOnlyTool.execute({ spec: cyrillic, output: 'tools/out/denied' }, exec)
   throw new Error('read-only write should have failed')
 } catch (error) {
   assert(/read-only/.test(error.message), `unexpected message: ${error.message}`)
-  assert(!fs.existsSync(path.resolve('diagrams/denied.svg')), 'denied write must not create files')
+  assert(!fs.existsSync(path.resolve('tools/out/denied.svg')), 'denied write must not create files')
 }
 console.log('read-only guard: ok')

@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 
-const source = JSON.parse(fs.readFileSync('.dev/icon-nodes.json', 'utf8'))
+const source = JSON.parse(fs.readFileSync('tools/icon-nodes.json', 'utf8'))
 
 const wanted = [
   'server', 'database', 'cloud', 'container', 'boxes', 'workflow',
@@ -113,6 +113,6 @@ const pack = {
   icons,
 }
 
-fs.mkdirSync('dsh-diagram/icons', { recursive: true })
-fs.writeFileSync('dsh-diagram/icons/core.json', JSON.stringify(pack, null, 2) + '\n')
-console.log('wrote', known.length, 'icons, bytes:', fs.statSync('dsh-diagram/icons/core.json').size)
+fs.mkdirSync('packages/diagram/icons', { recursive: true })
+fs.writeFileSync('packages/diagram/icons/core.json', JSON.stringify(pack, null, 2) + '\n')
+console.log('wrote', known.length, 'icons, bytes:', fs.statSync('packages/diagram/icons/core.json').size)

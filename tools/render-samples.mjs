@@ -1,8 +1,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { normalizeSpec } from '../dsh-diagram/lib/spec.js'
-import { buildDiagram } from '../dsh-diagram/lib/render.js'
-import { svgToPng } from '../dsh-diagram/lib/png.js'
+import { normalizeSpec } from '../packages/diagram/lib/spec.js'
+import { buildDiagram } from '../packages/diagram/lib/render.js'
+import { svgToPng } from '../packages/diagram/lib/png.js'
 
 const samples = {
   'pipeline-lr': {
@@ -75,13 +75,13 @@ const samples = {
   },
 }
 
-fs.mkdirSync('.dev/out', { recursive: true })
+fs.mkdirSync('tools/out', { recursive: true })
 for (const [name, raw] of Object.entries(samples)) {
   const spec = normalizeSpec(raw)
   const diagram = buildDiagram(spec)
-  const svgPath = path.resolve(`.dev/out/${name}.svg`)
+  const svgPath = path.resolve(`tools/out/${name}.svg`)
   fs.writeFileSync(svgPath, diagram.svg)
   const png = svgToPng(diagram.svg, 2)
-  fs.writeFileSync(path.resolve(`.dev/out/${name}.png`), png.bytes)
+  fs.writeFileSync(path.resolve(`tools/out/${name}.png`), png.bytes)
   console.log(name, `${diagram.width}x${diagram.height}`, 'png', `${png.width}x${png.height}`, `${png.bytes.length} bytes`)
 }

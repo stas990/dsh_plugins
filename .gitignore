@@ -157,7 +157,4 @@ vite.config.ts.timestamp-*
 .nx/migrate-runs
 
 # сгенерированные рендеры
-.dev/out/
-
-# опционально — если не храним снапшот Lucide
-# .dev/icon-nodes.json
+tools/out/

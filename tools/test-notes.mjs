@@ -1,8 +1,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { normalizeSpec } from '../dsh-diagram/lib/spec.js'
-import { buildDiagram } from '../dsh-diagram/lib/render.js'
-import { svgToPng } from '../dsh-diagram/lib/png.js'
+import { normalizeSpec } from '../packages/diagram/lib/spec.js'
+import { buildDiagram } from '../packages/diagram/lib/render.js'
+import { svgToPng } from '../packages/diagram/lib/png.js'
 
 function assert(condition, message) {
   if (!condition) throw new Error(`assertion failed: ${message}`)
@@ -48,10 +48,10 @@ console.log('merge budget: ok, kept:', JSON.stringify(big.noteItems[0]))
 const render = (name, raw) => {
   const spec = normalizeSpec(raw)
   const diagram = buildDiagram(spec)
-  fs.mkdirSync('.dev/out', { recursive: true })
-  fs.writeFileSync(path.resolve(`.dev/out/${name}.svg`), diagram.svg)
+  fs.mkdirSync('tools/out', { recursive: true })
+  fs.writeFileSync(path.resolve(`tools/out/${name}.svg`), diagram.svg)
   const png = svgToPng(diagram.svg, 2)
-  fs.writeFileSync(path.resolve(`.dev/out/${name}.png`), png.bytes)
+  fs.writeFileSync(path.resolve(`tools/out/${name}.png`), png.bytes)
   console.log(name, `${diagram.width}x${diagram.height}`, 'warnings:', diagram.warnings.length)
 }
 

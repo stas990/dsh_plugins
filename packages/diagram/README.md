@@ -217,10 +217,10 @@ users, wifi, workflow, zap
 | `locale/en.json`, `locale/ru.json` | Название и описание для Plugin Manager. |
 | `icon.svg` | Иконка плагина 36×36. |
 
-Служебные скрипты разработки лежат вне пакета, в `../.dev`: `make-icons.mjs`
-пересобирает `icons/core.json` из `icon-nodes.json` (Lucide 0.468.0),
-`test-*.mjs` — проверки спеки, алиасов и песочницы, `render-*.mjs` — эталонные
-рендеры. В `files` они не входят.
+Служебные скрипты разработки лежат вне пакета, в корневом `../tools`:
+`make-icons.mjs` пересобирает `icons/core.json` из `icon-nodes.json`
+(Lucide 0.468.0), `test-*.mjs` — проверки спеки, алиасов и песочницы,
+`render-*.mjs` — эталонные рендеры. В `files` пакета они не входят.
 
 ## Лицензия
 

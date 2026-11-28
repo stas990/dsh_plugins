@@ -1,0 +1,16 @@
+{
+  "name": "dsh-plugins",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Личные плагины для DeepSeek Harness",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "node --check packages/diagram/index.js && node --check packages/diagram/lib/tool.js && node --check packages/diagram/lib/render.js && node --check packages/diagram/lib/spec.js",
+    "test": "node tools/test-notes.mjs && node tools/test-aliases.mjs && node tools/test-tool.mjs",
+    "icons": "node tools/make-icons.mjs",
+    "render": "node tools/render-samples.mjs"
+  }
+}

@@ -1,8 +1,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { normalizeSpec } from '../dsh-diagram/lib/spec.js'
-import { buildDiagram } from '../dsh-diagram/lib/render.js'
-import { svgToPng } from '../dsh-diagram/lib/png.js'
+import { normalizeSpec } from '../packages/diagram/lib/spec.js'
+import { buildDiagram } from '../packages/diagram/lib/render.js'
+import { svgToPng } from '../packages/diagram/lib/png.js'
 
 const raw = {
   title: 'Shop architecture',
@@ -51,9 +51,9 @@ const raw = {
 
 const spec = normalizeSpec(raw)
 const diagram = buildDiagram(spec)
-fs.mkdirSync('diagrams', { recursive: true })
-fs.writeFileSync(path.resolve('diagrams/shop-architecture.svg'), diagram.svg)
+fs.mkdirSync('examples/diagram', { recursive: true })
+fs.writeFileSync(path.resolve('examples/diagram/shop-architecture.svg'), diagram.svg)
 const png = svgToPng(diagram.svg, 2)
-fs.writeFileSync(path.resolve('diagrams/shop-architecture.png'), png.bytes)
+fs.writeFileSync(path.resolve('examples/diagram/shop-architecture.png'), png.bytes)
 console.log('frame:', diagram.width, 'x', diagram.height)
 console.log('warnings:', diagram.warnings)
