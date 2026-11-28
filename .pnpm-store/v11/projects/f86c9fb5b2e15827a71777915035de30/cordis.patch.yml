@@ -1,3 +1,0 @@
-- insert:
-    - id: diagram-render
-      name: '@local/dsh-diagram'
