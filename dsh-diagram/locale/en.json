@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Diagram renderer",
+    "description": "Renders architecture and flow diagrams to SVG and PNG in one fixed visual style with bundled icons. A box can carry a short note, a bullet list, or both — the note comes first, the list sits under it. Ask for a diagram in chat; the agent calls diagram_render with nodes, edges and optional groups, and the tool writes diagrams/<title>.svg and .png into the workspace (2× scale for PNG). Layout, colors, typography and icon placement are owned by the plugin, so every diagram looks consistent; styling is not part of the request. Unknown icons, unknown spec keys and dangling edge ids are rejected instead of guessed. PNG needs the bundled rasterizer; without it the SVG is still written and the result explains why."
+  }
+}

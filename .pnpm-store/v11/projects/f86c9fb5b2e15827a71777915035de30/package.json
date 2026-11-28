@@ -1,0 +1,30 @@
+{
+  "name": "@local/dsh-diagram",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Architecture and flow diagrams rendered to SVG and PNG with a fixed visual style and bundled icon packs.",
+  "license": "MIT",
+  "exports": {
+    ".": "./index.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "lib",
+    "icons",
+    "locale/*.json",
+    "README.md",
+    "icon.svg",
+    "LICENSE-LUCIDE.txt"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "dependencies": {
+    "@resvg/resvg-js": "^2.6.2"
+  }
+}
